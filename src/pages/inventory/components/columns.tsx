@@ -1,9 +1,11 @@
 import { ColumnDef } from '@tanstack/react-table';
-import { Badge } from '@/components/ui/badge';
+// import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from './data-table-column-header';
 import { DataTableRowActions } from './data-table-row-actions';
-import { priorities, categories } from '../data/data';
+// import { priorities, categories } from '../data/data';
+import { priorities} from '../data/data';
+
 import { Product } from '../data/schema';
 
 export const columns: ColumnDef<Product>[] = [

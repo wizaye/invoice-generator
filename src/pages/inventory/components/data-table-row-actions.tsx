@@ -6,27 +6,26 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
+  // DropdownMenuRadioGroup,
+  // DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
+  // DropdownMenuSub,
+  // DropdownMenuSubContent,
+  // DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 
-import { categories } from '../data/data';
-import { productSchema } from '../data/schema';
+// import { categories } from '../data/data';
+// import { productSchema } from '../data/schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
 export function DataTableRowActions<TData>({
-  row,
 }: DataTableRowActionsProps<TData>) {
-  const product = productSchema.parse(row.original);
+  // const product = productSchema.parse(row.original);
 
   return (
     <DropdownMenu>

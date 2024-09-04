@@ -11,16 +11,16 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-import { invoiceSchema } from '../data/schema'
+// import { invoiceSchema } from '../data/schema'
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
 }
 
 export function DataTableRowActions<TData>({
-  row,
+  // row,
 }: DataTableRowActionsProps<TData>) {
-  const invoice = invoiceSchema.parse(row.original)
+  // const invoice = invoiceSchema.parse(row.original)
 
   return (
     <DropdownMenu>

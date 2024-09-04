@@ -1,23 +1,23 @@
 import {
-  IconBarrierBlock,
+  // IconBarrierBlock,
   IconChartHistogram,
   // IconChecklist,
-  IconError404,
-  IconExclamationCircle,
-  IconHexagonNumber1,
-  IconHexagonNumber2,
-  IconHexagonNumber3,
-  IconHexagonNumber4,
-  IconHexagonNumber5,
+  // IconError404,
+  // IconExclamationCircle,
+  // IconHexagonNumber1,
+  // IconHexagonNumber2,
+  // IconHexagonNumber3,
+  // IconHexagonNumber4,
+  // IconHexagonNumber5,
   IconLayoutDashboard,
-  IconServerOff,
-  IconUserShield,
+  // IconServerOff,
+  // IconUserShield,
   IconUsers,
-  IconLock,
+  // IconLock,
   IconLogout,
   IconForklift,
   IconCurrencyRupee,
-  IconFileDollar
+  // IconFileDollar
 } from '@tabler/icons-react'
 
 export interface NavLink {

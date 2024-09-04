@@ -3,7 +3,7 @@ import {
   ArrowRightIcon,
   ArrowUpIcon,
   CheckCircledIcon,
-  CircleIcon,
+  // CircleIcon,
   CrossCircledIcon,
   StopwatchIcon,
   QuestionMarkCircledIcon
