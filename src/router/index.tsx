@@ -15,7 +15,7 @@ const AppShell = React.lazy(() => import('../components/app-shell'));
 const Dashboard = React.lazy(() => import('../pages/dashboard'));
 const Billing = React.lazy(() => import('@/pages/billing'));
 const ComingSoon = React.lazy(() => import('@/components/coming-soon'));
-const Invoice= React.lazy(() => import('@/pages/invoice'));
+const Invoice = React.lazy(() => import('@/pages/invoice/index'));
 const Inventory = React.lazy(() => import('@/pages/inventory'));
 
 const router = createBrowserRouter([

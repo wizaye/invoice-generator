@@ -1,90 +1,115 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import * as z from 'zod';
-import { Button } from '@/components/custom/button';
+import { z } from 'zod';
+import { toast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { FormControl } from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+ // Assume you have a DatePicker component
 
+// Define your schema
 const invoiceSchema = z.object({
-  invoiceNumber: z.string().nonempty("Invoice number is required"),
-  customerName: z.string().nonempty("Customer name is required"),
-  email: z.string().email("Invalid email address").nonempty("Email is required"),
-  billingDate: z.string().nonempty("Billing date is required"),
-  dueDate: z.string().nonempty("Due date is required"),
-  totalAmount: z.number().positive("Amount must be positive"),
+  billingAddress: z.object({
+    name: z.string().nonempty('Name is required'),
+    addressLine1: z.string().nonempty('Address Line 1 is required'),
+    addressLine2: z.string().optional(),
+    city: z.string().nonempty('City is required'),
+    state: z.string().nonempty('State is required'),
+    postalCode: z.string().nonempty('Postal Code is required'),
+    country: z.string().nonempty('Country is required'),
+  }),
+  particulars: z.array(z.object({
+    item: z.string().nonempty('Item is required'),
+    quantity: z.number().min(1, 'Quantity must be at least 1'),
+    price: z.number().min(0, 'Price must be at least 0'),
+  })),
+  totalAmount: z.number().min(0, 'Total Amount must be at least 0'),
+  invoiceDate: z.date(),
+  dueDate: z.date()
 });
 
 type InvoiceFormValues = z.infer<typeof invoiceSchema>;
 
-const InvoiceForm: React.FC = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<InvoiceFormValues>({
+const defaultValues: Partial<InvoiceFormValues> = {
+  billingAddress: {
+    name: '',
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    state: '',
+    postalCode: '',
+    country: '',
+  },
+  particulars: [],
+  totalAmount: 0,
+  invoiceDate: undefined,
+  dueDate: undefined,
+};
+
+export default function InvoiceForm() {
+  const [step, setStep] = useState(1);
+
+  const form = useForm<InvoiceFormValues>({
     resolver: zodResolver(invoiceSchema),
+    defaultValues,
   });
 
   const onSubmit = (data: InvoiceFormValues) => {
-    console.log('Invoice Data:', data);
-    // Here you can handle the invoice data, e.g., send it to an API or save it in the database
+    toast({
+      title: 'Invoice submitted',
+      description: (
+        <pre className='mt-2 w-[340px] rounded-md bg-slate-950 p-4'>
+          <code className='text-white'>{JSON.stringify(data, null, 2)}</code>
+        </pre>
+      ),
+    });
+    // Handle form submission logic
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-      <div>
-        <Label htmlFor="invoiceNumber">Invoice Number</Label>
-        <FormControl>
-          <Input id="invoiceNumber" {...register('invoiceNumber')} />
-          {errors.invoiceNumber && <p className="text-red-500">{errors.invoiceNumber.message}</p>}
-        </FormControl>
-      </div>
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+        {step === 1 && (
+          <div>
+            <h2>Billing Address</h2>
+            <FormField
+              control={form.control}
+              name='billingAddress.name'
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder='Name' {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            {/* Repeat FormField for other billing address fields */}
+            <Button type='button' onClick={() => setStep(2)}>Next: Add Particulars</Button>
+          </div>
+        )}
 
-      <div>
-        <Label htmlFor="customerName">Customer Name</Label>
-        <FormControl>
-          <Input id="customerName" {...register('customerName')} />
-          {errors.customerName && <p className="text-red-500">{errors.customerName.message}</p>}
-        </FormControl>
-      </div>
+        {step === 2 && (
+          <div>
+            <h2>Particulars</h2>
+            {/* Implement fields for particulars */}
+            <Button type='button' onClick={() => setStep(1)}>Back to Billing Address</Button>
+            <Button type='button' onClick={() => setStep(3)}>Next: Generate Invoice</Button>
+          </div>
+        )}
 
-      <div>
-        <Label htmlFor="email">Customer Email</Label>
-        <FormControl>
-          <Input id="email" {...register('email')} />
-          {errors.email && <p className="text-red-500">{errors.email.message}</p>}
-        </FormControl>
-      </div>
-
-      <div>
-        <Label htmlFor="billingDate">Billing Date</Label>
-        <FormControl>
-          <Input id="billingDate" type="date" {...register('billingDate')} />
-          {errors.billingDate && <p className="text-red-500">{errors.billingDate.message}</p>}
-        </FormControl>
-      </div>
-
-      <div>
-        <Label htmlFor="dueDate">Due Date</Label>
-        <FormControl>
-          <Input id="dueDate" type="date" {...register('dueDate')} />
-          {errors.dueDate && <p className="text-red-500">{errors.dueDate.message}</p>}
-        </FormControl>
-      </div>
-
-      <div>
-        <Label htmlFor="totalAmount">Total Amount</Label>
-        <FormControl>
-          <Input id="totalAmount" type="number" step="0.01" {...register('totalAmount', { valueAsNumber: true })} />
-          {errors.totalAmount && <p className="text-red-500">{errors.totalAmount.message}</p>}
-        </FormControl>
-      </div>
-
-      <Button type="submit">Create Invoice</Button>
-    </form>
+        {step === 3 && (
+          <div>
+            <h2>Final Invoice</h2>
+            {/* Display summary and final submission */}
+            <Button type='button' onClick={() => setStep(2)}>Back to Particulars</Button>
+            <Button type='submit'>Submit Invoice</Button>
+          </div>
+        )}
+      </form>
+    </Form>
   );
-};
-
-export default InvoiceForm;
+}
