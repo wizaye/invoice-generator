@@ -5,10 +5,10 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { DataTableColumnHeader } from './data-table-column-header'
 import { DataTableRowActions } from './data-table-row-actions'
 
-import { labels, priorities, statuses } from '../data/data'
-import { Task } from '../data/schema'
+import { labels, priorities, Types} from '../data/data'
+import { Product } from '../data/schema'
 
-export const columns: ColumnDef<Task>[] = [
+export const columns: ColumnDef<Product>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -66,7 +66,7 @@ export const columns: ColumnDef<Task>[] = [
       <DataTableColumnHeader column={column} title='Status' />
     ),
     cell: ({ row }) => {
-      const status = statuses.find(
+      const status = Types.find(
         (status) => status.value === row.getValue('status')
       )
 

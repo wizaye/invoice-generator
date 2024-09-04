@@ -24,7 +24,7 @@ export const labels = [
   },
 ]
 
-export const statuses = [
+export const Types = [
   {
     value: 'backlog',
     label: 'Backlog',
