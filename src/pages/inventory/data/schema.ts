@@ -1,13 +1,14 @@
-import { z } from 'zod'
+import { z } from 'zod';
 
-// We're keeping a simple non-relational schema here.
-// IRL, you will have a schema for your data models.
 export const productSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  status: z.string(),
-  label: z.string(),
-  priority: z.string(),
-})
+  productId: z.string(),      // Product ID
+  productName: z.string(),    // Product Name
+  hsn: z.string(),            // HSN (Harmonized System of Nomenclature)
+  mfgDate: z.date(),          // Manufacturing Date (Date type)
+  expDate: z.date(),          // Expiration Date (Date type)
+  quantity: z.number(),       // Quantity
+  price: z.number(),          // Price per unit
+  amount: z.number(),         // Total Amount
+});
 
-export type Product= z.infer<typeof productSchema>
+export type Product = z.infer<typeof productSchema>;

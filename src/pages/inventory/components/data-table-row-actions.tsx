@@ -1,7 +1,7 @@
-import { DotsHorizontalIcon } from '@radix-ui/react-icons'
-import { Row } from '@tanstack/react-table'
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { Row } from '@tanstack/react-table';
 
-import { Button } from '@/components/custom/button'
+import { Button } from '@/components/custom/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,19 +14,19 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+} from '@/components/ui/dropdown-menu';
 
-import { labels } from '../data/data'
-import { productSchema } from '../data/schema'
+import { categories } from '../data/data';
+import { productSchema } from '../data/schema';
 
 interface DataTableRowActionsProps<TData> {
-  row: Row<TData>
+  row: Row<TData>;
 }
 
 export function DataTableRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const product = productSchema.parse(row.original)
+  const product = productSchema.parse(row.original);
 
   return (
     <DropdownMenu>
@@ -44,18 +44,18 @@ export function DataTableRowActions<TData>({
         <DropdownMenuItem>Make a copy</DropdownMenuItem>
         <DropdownMenuItem>Favorite</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
+        {/* <DropdownMenuSub>
+          <DropdownMenuSubTrigger>Categories</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={product.label}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
+            <DropdownMenuRadioGroup value={product.amount}>
+              {categories.map((category) => (
+                <DropdownMenuRadioItem key={category.value} value={category.value}>
+                  {category.label}
                 </DropdownMenuRadioItem>
               ))}
             </DropdownMenuRadioGroup>
           </DropdownMenuSubContent>
-        </DropdownMenuSub>
+        </DropdownMenuSub> */}
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           Delete
@@ -63,5 +63,5 @@ export function DataTableRowActions<TData>({
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }

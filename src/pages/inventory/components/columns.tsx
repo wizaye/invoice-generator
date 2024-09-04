@@ -1,11 +1,10 @@
-import { ColumnDef } from '@tanstack/react-table'
-
-import { Badge } from '@/components/ui/badge'
-import { Checkbox } from '@/components/ui/checkbox'
-import { DataTableColumnHeader } from './data-table-column-header'
-import { DataTableRowActions } from './data-table-row-actions'
-import { labels, priorities, Types} from '../data/data'
-import { Product } from '../data/schema'
+import { ColumnDef } from '@tanstack/react-table';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import { DataTableColumnHeader } from './data-table-column-header';
+import { DataTableRowActions } from './data-table-row-actions';
+import { priorities, categories } from '../data/data';
+import { Product } from '../data/schema';
 
 export const columns: ColumnDef<Product>[] = [
   {
@@ -33,58 +32,68 @@ export const columns: ColumnDef<Product>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'id',
+    accessorKey: 'productId',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Task' />
+      <DataTableColumnHeader column={column} title='Product ID' />
     ),
-    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className='w-[80px]'>{row.getValue('productId')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: 'title',
+    accessorKey: 'productName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Title' />
+      <DataTableColumnHeader column={column} title='Product Name' />
     ),
-    cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label)
-
-      return (
-        <div className='flex space-x-2'>
-          {label && <Badge variant='outline'>{label.label}</Badge>}
-          <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
-            {row.getValue('title')}
-          </span>
-        </div>
-      )
-    },
+    cell: ({ row }) => (
+      <div className='flex space-x-2'>
+        <span className='max-w-32 truncate font-medium sm:max-w-72 md:max-w-[31rem]'>
+          {row.getValue('productName')}
+        </span>
+      </div>
+    ),
   },
   {
-    accessorKey: 'status',
+    accessorKey: 'hsn',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title='Status' />
+      <DataTableColumnHeader column={column} title='HSN' />
     ),
-    cell: ({ row }) => {
-      const status = Types.find(
-        (status) => status.value === row.getValue('status')
-      )
-
-      if (!status) {
-        return null
-      }
-
-      return (
-        <div className='flex w-[100px] items-center'>
-          {status.icon && (
-            <status.icon className='mr-2 h-4 w-4 text-muted-foreground' />
-          )}
-          <span>{status.label}</span>
-        </div>
-      )
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
+    cell: ({ row }) => <div>{row.getValue('hsn')}</div>,
+  },
+  // {
+  //   accessorKey: 'mfgDate',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title='Manufacturing Date' />
+  //   ),
+  //   cell: ({ row }) => <div>{row.getValue('mfgDate')}</div>,
+  // },
+  // {
+  //   accessorKey: 'expDate',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title='Expiration Date' />
+  //   ),
+  //   cell: ({ row }) => <div>{row.getValue('expDate')}</div>,
+  // },
+  {
+    accessorKey: 'quantity',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Quantity' />
+    ),
+    cell: ({ row }) => <div>{row.getValue('quantity')}</div>,
+  },
+  {
+    accessorKey: 'price',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Price' />
+    ),
+    cell: ({ row }) => <div>{`$${row.getValue('price')}`}</div>,
+  },
+  {
+    accessorKey: 'amount',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title='Amount' />
+    ),
+    cell: ({ row }) => <div>{`$${row.getValue('amount')}`}</div>,
   },
   {
     accessorKey: 'priority',
@@ -94,10 +103,10 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       const priority = priorities.find(
         (priority) => priority.value === row.getValue('priority')
-      )
+      );
 
       if (!priority) {
-        return null
+        return null;
       }
 
       return (
@@ -107,14 +116,14 @@ export const columns: ColumnDef<Product>[] = [
           )}
           <span>{priority.label}</span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     id: 'actions',
     cell: ({ row }) => <DataTableRowActions row={row} />,
   },
-]
+];

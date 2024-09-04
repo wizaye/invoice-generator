@@ -5,53 +5,55 @@ import {
   CheckCircledIcon,
   CircleIcon,
   CrossCircledIcon,
-  QuestionMarkCircledIcon,
   StopwatchIcon,
-} from '@radix-ui/react-icons'
+  QuestionMarkCircledIcon
+} from '@radix-ui/react-icons';
 
-export const labels = [
+// Product categories (e.g., type of product)
+export const categories = [
   {
-    value: 'bug',
-    label: 'Bug',
+    value: 'electronics',
+    label: 'Electronics',
   },
   {
-    value: 'feature',
-    label: 'Feature',
+    value: 'clothing',
+    label: 'Clothing',
   },
   {
-    value: 'documentation',
-    label: 'Documentation',
+    value: 'groceries',
+    label: 'Groceries',
   },
-]
+  {
+    value: 'home_goods',
+    label: 'Home Goods',
+  },
+];
 
-export const Types = [
+// Product statuses (e.g., availability in inventory)
+export const statuses = [
   {
-    value: 'backlog',
-    label: 'Backlog',
-    icon: QuestionMarkCircledIcon,
-  },
-  {
-    value: 'todo',
-    label: 'Todo',
-    icon: CircleIcon,
-  },
-  {
-    value: 'in progress',
-    label: 'In Progress',
-    icon: StopwatchIcon,
-  },
-  {
-    value: 'done',
-    label: 'Done',
+    value: 'in_stock',
+    label: 'In Stock',
     icon: CheckCircledIcon,
   },
   {
-    value: 'canceled',
-    label: 'Canceled',
+    value: 'out_of_stock',
+    label: 'Out of Stock',
     icon: CrossCircledIcon,
   },
-]
+  {
+    value: 'discontinued',
+    label: 'Discontinued',
+    icon: StopwatchIcon,
+  },
+  {
+    value: 'backorder',
+    label: 'Backorder',
+    icon: QuestionMarkCircledIcon,
+  },
+];
 
+// Product priorities (e.g., high-priority restocking or promotion)
 export const priorities = [
   {
     label: 'Low',
@@ -68,4 +70,4 @@ export const priorities = [
     value: 'high',
     icon: ArrowUpIcon,
   },
-]
+];

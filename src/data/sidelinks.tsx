@@ -39,12 +39,6 @@ export const sidelinks: SideLink[] = [
     icon: <IconLayoutDashboard size={18} />,
   },
   {
-    title: 'Invoice',
-    label: '',
-    href: '/create-invoice',
-    icon: <IconFileDollar size={18} />,
-  },
-  {
     title: 'Billing',
     label: '3',
     href: '/billing',

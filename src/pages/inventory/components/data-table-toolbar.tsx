@@ -1,30 +1,30 @@
-import { Cross2Icon } from '@radix-ui/react-icons'
-import { Table } from '@tanstack/react-table'
+import { Cross2Icon } from '@radix-ui/react-icons';
+import { Table } from '@tanstack/react-table';
 
-import { Button } from '@/components/custom/button'
-import { Input } from '@/components/ui/input'
-import { DataTableViewOptions } from './data-table-view-options'
+import { Button } from '@/components/custom/button';
+import { Input } from '@/components/ui/input';
+import { DataTableViewOptions } from './data-table-view-options';
 
-import { Types } from '../data/data'
-import { DataTableFacetedFilter } from './data-table-faceted-filter'
+import { priorities, categories } from '../data/data';
+import { DataTableFacetedFilter } from './data-table-faceted-filter';
 
 interface DataTableToolbarProps<TData> {
-  table: Table<TData>
+  table: Table<TData>;
 }
 
 export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
-  const isFiltered = table.getState().columnFilters.length > 0
+  const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
     <div className='flex items-center justify-between'>
       <div className='flex flex-1 flex-col-reverse items-start gap-y-2 sm:flex-row sm:items-center sm:space-x-2'>
         <Input
           placeholder='Search Products...'
-          value={(table.getColumn('title')?.getFilterValue() as string) ?? ''}
+          value={(table.getColumn('productName')?.getFilterValue() as string) ?? ''}
           onChange={(event) =>
-            table.getColumn('title')?.setFilterValue(event.target.value)
+            table.getColumn('productName')?.setFilterValue(event.target.value)
           }
           className='h-8 w-[150px] lg:w-[250px]'
         />
@@ -32,10 +32,17 @@ export function DataTableToolbar<TData>({
           {table.getColumn('priority') && (
             <DataTableFacetedFilter
               column={table.getColumn('priority')}
-              title='Types'
-              options={Types}
+              title='Priority'
+              options={priorities}
             />
           )}
+          {/* {table.getColumn('category') && (
+            <DataTableFacetedFilter
+              column={table.getColumn('category')}
+              title='Category'
+              options={categories}
+            />
+          )} */}
         </div>
         {isFiltered && (
           <Button
@@ -50,5 +57,5 @@ export function DataTableToolbar<TData>({
       </div>
       <DataTableViewOptions table={table} />
     </div>
-  )
+  );
 }
